@@ -1,5 +1,89 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
 body {
-  background: #121212;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f0f1a, #1a0033);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  color: #d6a3ff;
+  font-size: 32px;
+}
+
+/* ===== NAV ===== */
+button {
+  background: #2a004d;
+  border: 1px solid #6a00ff;
+  color: #fff;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #6a00ff;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== CONTAINER ===== */
+#content {
+  max-width: 600px;
+  margin: 20px auto;
+  background: rgba(20, 0, 40, 0.8);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(106, 0, 255, 0.4);
+}
+
+/* ===== INPUT ===== */
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-right: 10px;
+  width: 70%;
+  background: #1a1a2e;
   color: white;
-  font-family: Arial;
+}
+
+/* ===== LIST ===== */
+ul {
+  list-style: none;
+  margin-top: 15px;
+}
+
+li {
+  background: #1a1a2e;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== TEXT ===== */
+h2 {
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+
+p {
+  margin-top: 15px;
+  color: #ffd700;
+  font-weight: bold;
 }

@@ -4,10 +4,15 @@ export function initUI() {
   const app = document.getElementById("app");
 
   app.innerHTML = `
-    <h1>Dashboard</h1>
-    <button data-path="/tasks">Tasks</button>
-    <button data-path="/notes">Notes</button>
-    <button data-path="/tracker">Tracker</button>
+    <header style="text-align:center;">
+      <h1>⚡ Smart Dashboard</h1>
+      <div>
+        <button data-path="/tasks">Tasks</button>
+        <button data-path="/notes">Notes</button>
+        <button data-path="/tracker">Tracker</button>
+      </div>
+    </header>
+
     <div id="content"></div>
   `;
 

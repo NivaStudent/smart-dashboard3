@@ -1,47 +1,77 @@
+import {
+  getTasks,
+  addTask,
+  completeTask,
+  deleteTask,
+  getTotalPoints
+} from "./tasks.js";
+
 import { getMainContainer } from "../../core/uiContainer.js";
-import { getTasks, addTask, completeTask, deleteTask, getTotalPoints } from "./tasks.js";
 
 export function renderTasksUI() {
   const container = getMainContainer();
+  const tasks = getTasks();
 
-  function render() {
-    const tasks = getTasks();
+  container.innerHTML = `
+    <h2>📝 Tasks</h2>
 
-    container.innerHTML = `
-      <h2>Tasks</h2>
-      <form id="form">
-        <input id="input" required />
-        <button>Add</button>
-      </form>
+    <form id="task-form">
+      <input id="task-input" placeholder="Enter task..." required />
+      <button type="submit">Add</button>
+    </form>
 
-      <ul>
-        ${tasks.map(t => `
-          <li>
+    <ul>
+      ${tasks
+        .map(
+          (t) => `
+        <li>
+          <span style="${
+            t.completed ? "text-decoration: line-through; opacity: 0.6;" : ""
+          }">
             ${t.title}
-            <button data-c="${t.id}">✔</button>
-            <button data-d="${t.id}">✖</button>
-          </li>
-        `).join("")}
-      </ul>
+          </span>
+          <div>
+            <button data-complete="${t.id}">✔</button>
+            <button data-delete="${t.id}">✖</button>
+          </div>
+        </li>
+      `
+        )
+        .join("")}
+    </ul>
 
-      <p>Points: ${getTotalPoints()}</p>
-    `;
+    <p>⭐ Points: ${getTotalPoints()}</p>
+  `;
 
-    document.getElementById("form").onsubmit = e => {
-      e.preventDefault();
-      addTask({ title: input.value });
-      input.value = "";
-      render();
-    };
+  // ===== ДОБАВЛЕНИЕ ЗАДАЧИ =====
+  const form = document.getElementById("task-form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    document.querySelectorAll("[data-c]").forEach(b => {
-      b.onclick = () => { completeTask(Number(b.dataset.c)); render(); };
-    });
+    const input = document.getElementById("task-input");
+    const value = input.value.trim();
 
-    document.querySelectorAll("[data-d]").forEach(b => {
-      b.onclick = () => { deleteTask(Number(b.dataset.d)); render(); };
-    });
-  }
+    if (!value) return;
 
-  render();
+    addTask({ title: value });
+    input.value = "";
+
+    renderTasksUI(); // перерендер
+  });
+
+  // ===== КНОПКИ (делегирование) =====
+  container.addEventListener("click", (e) => {
+    const completeId = e.target.dataset.complete;
+    const deleteId = e.target.dataset.delete;
+
+    if (completeId) {
+      completeTask(Number(completeId));
+      renderTasksUI();
+    }
+
+    if (deleteId) {
+      deleteTask(Number(deleteId));
+      renderTasksUI();
+    }
+  });
 }
